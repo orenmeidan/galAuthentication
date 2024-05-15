@@ -1,16 +1,23 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  afterNextRender,
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscription, map } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   providers: [AuthService],
 })
 export class LoginComponent implements OnInit, OnDestroy {
@@ -86,10 +93,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   //     console.log(this.appname);
   //   });
   // }
-  private getAppnameFromUrl(): string {
-    const url = window.location.href;
-    const parts = url.split('/');
+  private getAppnameFromUrl(): any {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      debugger;
+    });
+    // const url = window.location.href;
+    // const parts = url.split('/');
     // Assuming the appname is in the second segment of the URL
-    return parts[parts.length - 1];
+    // return parts[parts.length - 1];
   }
 }
